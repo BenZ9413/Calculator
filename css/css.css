@@ -1,0 +1,25 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 3px;
+}
+
+.calculator {
+    width: 520px;
+    height: 520px;
+    border: 3px solid black;
+}
+
+/*Style the display-area*/
+
+.textContainer {
+    height: 30%;
+}
+
+/*Style the button-area*/
+
+.buttonContainer {
+    background-color: grey;
+    height: 70%;
+}
