@@ -26,7 +26,16 @@ function setupCalculator() {
     btnClear.addEventListener('click', () => {
         resetCalculator();
     });
+
+    const btnBack = document.querySelector('.back');
+    btnBack.addEventListener('click', deleteLastClicked);
+
     return 
+};
+
+// delete the last clicked value
+function deleteLastClicked () {
+    alert('backspace');
 };
 
 // clear the screen and reset the arrays
@@ -39,12 +48,11 @@ function resetCalculator() {
     while (listOfClickedOperators.length > 0) {
         listOfClickedOperators.shift();
     };
-    console.log(listOfClickedOperators);
-    console.log(listOfClickedNumbers);
     return;
 };
 
 // save the value of the clicked button to perform operations on it later on
+// append as long as no operator is clicked
 function saveClickedButtonAsNumber (e) {
     listOfClickedNumbers.push(Number(e.target.textContent));
     return listOfClickedNumbers;
