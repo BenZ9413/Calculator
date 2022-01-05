@@ -22,7 +22,7 @@ function setupCalculator() {
         });
     });
 
-    const btnClear = document.querySelector('.delete');
+    const btnClear = document.querySelector('.clear');
     btnClear.addEventListener('click', () => {
         resetCalculator();
     });
