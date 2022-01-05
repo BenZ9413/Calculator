@@ -1,5 +1,6 @@
 // Code which is run after loading the page
 const listOfClickedNumbers = [];
+const listOfClickedOperators = [];
 setupCalculator();
 
 // create clickEvents to Buttons
@@ -16,6 +17,7 @@ function setupCalculator() {
 
     btnOperators.forEach ((btn) =>{
         btn.addEventListener('click', function(e) {
+            const clickedOperators = saveClickedOperator(e);
             displayTextOnScreen(e);
         });
     });
@@ -25,9 +27,14 @@ function setupCalculator() {
 // save the value of the clicked button to perform operations on it later on
 function saveClickedButtonAsNumber (e) {
     listOfClickedNumbers.push(Number(e.target.textContent));
-    console.log(listOfClickedNumbers);
-    return listOfClickedNumbers
-}
+    return listOfClickedNumbers;
+};
+
+// save the clicked operator to perform operations on it later on
+function saveClickedOperator (e) {
+    listOfClickedOperators.push(e.target.textContent);
+    return listOfClickedOperators;
+};
 
 // display the clicked button on the screen
 function displayTextOnScreen (e) {
