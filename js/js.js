@@ -1,6 +1,12 @@
+/*Besonderheiten noch zu programmieren
+- Beginn mit negativer Zahl
+- 
+*/
+
 // Code which is run after loading the page
 const listOfClickedNumbers = [];
 const listOfClickedOperators = [];
+let lastClicked = '';
 setupCalculator();
 
 // create clickEvents to Buttons
@@ -10,27 +16,25 @@ function setupCalculator() {
 
     btnNumbers.forEach ((btn) => {
         btn.addEventListener('click', function (e) {
-            const clickedNumbers = saveClickedButtonAsNumber(e);
             displayTextOnScreen(e);
+            lastClicked = 'number';
         });
     });
 
     btnOperators.forEach ((btn) =>{
         btn.addEventListener('click', function(e) {
-            const clickedOperators = saveClickedOperator(e);
-            displayTextOnScreen(e);
+            saveClickedButtonAsNumber(e);
+            saveClickedOperator(e);
         });
     });
 
     const btnClear = document.querySelector('.clear');
-    btnClear.addEventListener('click', () => {
-        resetCalculator();
-    });
+    btnClear.addEventListener('click', resetCalculator);
 
     const btnBack = document.querySelector('.back');
     btnBack.addEventListener('click', deleteLastClicked);
 
-    return 
+    return;
 };
 
 // delete the last clicked value
@@ -52,16 +56,19 @@ function resetCalculator() {
 };
 
 // save the value of the clicked button to perform operations on it later on
-// append as long as no operator is clicked
 function saveClickedButtonAsNumber (e) {
-    listOfClickedNumbers.push(Number(e.target.textContent));
-    return listOfClickedNumbers;
+    const display = document.querySelector('.textField');
+    listOfClickedNumbers.push(Number(display.textContent));
+    return;
 };
 
-// save the clicked operator to perform operations on it later on
+// save the clicked operator to perform operations on it later on and clear the display
 function saveClickedOperator (e) {
     listOfClickedOperators.push(e.target.textContent);
-    return listOfClickedOperators;
+    const display = document.querySelector('.textField');
+    display.textContent = '';
+    lastClicked = 'operator';
+    return;
 };
 
 // display the clicked button on the screen
@@ -69,5 +76,5 @@ function displayTextOnScreen (e) {
     const display = document.querySelector('.textField');
     const actualDisplayText = display.textContent;
     display.textContent = actualDisplayText + e.target.textContent;
-    return
+    return;
 };
