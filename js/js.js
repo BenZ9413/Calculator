@@ -1,6 +1,7 @@
 /*Besonderheiten noch zu programmieren
 - Beginn mit negativer Zahl
-- 
+- Ergebnistaste drücken, wenn zuletzt ein Operator gewählt wurde
+- Wie geht es nach Ergebnis anzeigen weiter??
 */
 
 // Code which is run after loading the page
@@ -34,7 +35,52 @@ function setupCalculator() {
     const btnBack = document.querySelector('.back');
     btnBack.addEventListener('click', deleteLastClicked);
 
+    const btnResult = document.querySelector('.result');
+    btnResult.addEventListener('click', calculateAndShowResult);
+
     return;
+};
+
+// Calculate and show the result
+function calculateAndShowResult () {
+    const indexListOperators = 0;
+    const result = listOfClickedNumbers.reduce((total, number) => {
+        switch (listOfClickedOperators[indexListOperators]) {
+            case '+':
+                total = add(total, number);
+            case '-':
+                total = subtract(total, number);
+            case 'x':
+                total = multiply(total, number);
+            case '/':
+                total = divide(total, number);
+        };
+        console.log(total);
+        indexListOperators++;
+        return total;
+    });
+    const display = document.querySelector('.textField');
+    display.textContent = result;
+};
+
+// add the numbers
+function add(a, b) {
+    return (a+b);
+};
+
+// subtract the numbers
+function subtract(a, b) {
+    return (a-b);
+};
+
+// multiply the numbers
+function multiply(a, b) {
+    return (a*b);
+};
+
+// divide the numbers 
+function divide(a, b) {
+    return (a/b);
 };
 
 // delete the last clicked value
@@ -52,8 +98,6 @@ function deleteLastClicked () {
     } else {
         display.textContent = display.textContent.slice(0, -1);
     };
-    console.log(listOfClickedNumbers);
-    console.log(listOfClickedOperators);
 };
 
 // clear the screen and reset the arrays
