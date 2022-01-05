@@ -21,7 +21,27 @@ function setupCalculator() {
             displayTextOnScreen(e);
         });
     });
+
+    const btnClear = document.querySelector('.delete');
+    btnClear.addEventListener('click', () => {
+        resetCalculator();
+    });
     return 
+};
+
+// clear the screen and reset the arrays
+function resetCalculator() {
+    const clearedDisplay = document.querySelector('.textField');
+    clearedDisplay.textContent = '';
+    while (listOfClickedNumbers.length > 0) {
+        listOfClickedNumbers.shift();
+    };
+    while (listOfClickedOperators.length > 0) {
+        listOfClickedOperators.shift();
+    };
+    console.log(listOfClickedOperators);
+    console.log(listOfClickedNumbers);
+    return;
 };
 
 // save the value of the clicked button to perform operations on it later on
