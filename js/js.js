@@ -39,7 +39,21 @@ function setupCalculator() {
 
 // delete the last clicked value
 function deleteLastClicked () {
-    alert('backspace');
+    const display = document.querySelector('.textField');
+    if (lastClicked == 'operator') {
+        display.textContent = listOfClickedNumbers[listOfClickedNumbers.length - 1];
+        listOfClickedNumbers.pop();
+        listOfClickedOperators.pop();
+        lastClicked = 'number';
+    } else if (lastClicked == 'number' && display.textContent == '') {
+        display.textContent = listOfClickedNumbers[listOfClickedNumbers.length - 1];
+        listOfClickedNumbers.pop();
+        listOfClickedOperators.pop();
+    } else {
+        display.textContent = display.textContent.slice(0, -1);
+    };
+    console.log(listOfClickedNumbers);
+    console.log(listOfClickedOperators);
 };
 
 // clear the screen and reset the arrays
