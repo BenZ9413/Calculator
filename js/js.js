@@ -24,7 +24,7 @@ function setupCalculator() {
 
     btnOperators.forEach ((btn) =>{
         btn.addEventListener('click', function(e) {
-            saveClickedButtonAsNumber(e);
+            saveClickedButtonAsNumber();
             saveClickedOperator(e);
         });
     });
@@ -43,19 +43,23 @@ function setupCalculator() {
 
 // Calculate and show the result
 function calculateAndShowResult () {
-    const indexListOperators = 0;
+    saveClickedButtonAsNumber();
+    let indexListOperators = 0;
     const result = listOfClickedNumbers.reduce((total, number) => {
         switch (listOfClickedOperators[indexListOperators]) {
             case '+':
                 total = add(total, number);
+                break;
             case '-':
                 total = subtract(total, number);
+                break;
             case 'x':
                 total = multiply(total, number);
+                break;
             case '/':
                 total = divide(total, number);
+                break;
         };
-        console.log(total);
         indexListOperators++;
         return total;
     });
@@ -114,7 +118,7 @@ function resetCalculator() {
 };
 
 // save the value of the clicked button to perform operations on it later on
-function saveClickedButtonAsNumber (e) {
+function saveClickedButtonAsNumber () {
     const display = document.querySelector('.textField');
     listOfClickedNumbers.push(Number(display.textContent));
     return;
