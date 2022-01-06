@@ -1,7 +1,5 @@
 /*Besonderheiten noch zu programmieren
 - Beginn mit negativer Zahl
-- Ergebnistaste drücken, wenn zuletzt ein Operator gewählt wurde
-- Pressing = before all numbers were given
 - only one . at a time
 */
 let firstNumber = null;
@@ -148,12 +146,21 @@ function addClickEventToClear () {
 function addClickEventToResult () {
     const btnResult = document.querySelector('.result');
     btnResult.addEventListener('click', () => {
-        storeNumber();
-        let result = calculate(operator, firstNumber, secondNumber);
-        showResult(result);
-        firstNumber = null;
-        secondNumber = null;
-        displayCount = true;
+        if (firstNumber == null || secondNumber == null) {
+            alert('ERROR: Not enough arguments. Please enter your equation again.');
+            firstNumber = null;
+            secondNumber = null;
+            displayCount = false;
+            operator = '';
+            clearDisplay();
+        } else {
+            storeNumber();
+            let result = calculate(operator, firstNumber, secondNumber);
+            showResult(result);
+            firstNumber = null;
+            secondNumber = null;
+            displayCount = true;
+        };
     });
 };
 
