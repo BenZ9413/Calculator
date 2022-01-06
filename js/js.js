@@ -1,6 +1,5 @@
 /*Besonderheiten noch zu programmieren
 - Beginn mit negativer Zahl
-- only one . at a time
 */
 let firstNumber = null;
 let secondNumber = null;
@@ -25,7 +24,7 @@ function addClickEventToNumbers() {
                 clearDisplay();
                 displayCount = false;
             };
-            displayTextOnScreen(e);
+            checkIfDoubleDotAndDisplayTextOnScreen(e);
         });
     });
 };
@@ -34,7 +33,15 @@ function displayTextOnScreen (e) {
     const display = document.querySelector('.textField');
     const actualDisplayText = display.textContent;
     display.textContent = actualDisplayText + e.target.textContent;
-    return;
+};
+
+function checkIfDoubleDotAndDisplayTextOnScreen (e) {
+    const display = document.querySelector('.textField');
+    if (display.textContent.split('').includes('.') && e.target.textContent == '.') {
+        alert('Don\'t be too picky.');
+    } else {
+        displayTextOnScreen(e);
+    };
 };
 
 function addClickEventToOperators() {
@@ -146,6 +153,7 @@ function addClickEventToClear () {
 function addClickEventToResult () {
     const btnResult = document.querySelector('.result');
     btnResult.addEventListener('click', () => {
+        storeNumber();
         if (firstNumber == null || secondNumber == null) {
             alert('ERROR: Not enough arguments. Please enter your equation again.');
             firstNumber = null;
@@ -154,7 +162,6 @@ function addClickEventToResult () {
             operator = '';
             clearDisplay();
         } else {
-            storeNumber();
             let result = calculate(operator, firstNumber, secondNumber);
             showResult(result);
             firstNumber = null;
