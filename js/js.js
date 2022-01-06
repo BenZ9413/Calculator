@@ -65,6 +65,11 @@ function calculateAndShowResult () {
     });
     const display = document.querySelector('.textField');
     display.textContent = result;
+
+    const btnAll = document.querySelectorAll('button');
+    btnAll.forEach((button) => {
+        button.addEventListener('click', completelyResetCalculator);
+    });
 };
 
 // add the numbers
@@ -139,4 +144,14 @@ function displayTextOnScreen (e) {
     const actualDisplayText = display.textContent;
     display.textContent = actualDisplayText + e.target.textContent;
     return;
+};
+
+function completelyResetCalculator() {
+    // remove click-event so there isn't any more resets
+    const btnAll = document.querySelectorAll('button');
+    btnAll.forEach((button) => {
+        button.removeEventListener('click', completelyResetCalculator);
+    });
+    // reset the saved Lists and clear the screen
+    resetCalculator();
 };
