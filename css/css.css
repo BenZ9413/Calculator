@@ -76,7 +76,8 @@ button {
     background-color:  #FF5733;
 }
 
-.number {
+.number,
+.percent {
     background-color:   #FFC300 ;
 }
 
