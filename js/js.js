@@ -2,7 +2,6 @@
 - Beginn mit negativer Zahl
 - Ergebnistaste drücken, wenn zuletzt ein Operator gewählt wurde
 - Pressing = before all numbers were given
-- dividing by 0 ERROR
 - only one . at a time
 */
 let firstNumber = null;
@@ -85,7 +84,17 @@ function calculate(operator, first, second) {
             result = multiply(first, second);
             break;
         case '/':
-            result = divide(first, second);
+            if (second == 0) {
+                alert('ERROR: Division by zero is not possible!');
+                firstNumber = null;
+                secondNumber = null;
+                displayCount = false;
+                operator = '';
+                clearDisplay();
+                result = '';
+            } else {
+                result = divide(first, second);
+            };
             break;
     };
     return result;
