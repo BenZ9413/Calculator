@@ -1,14 +1,19 @@
+html {
+    height: 100%;
+}
+
 body {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 3px;
+    height: 100%;
+    margin: 0px;
+    font-family: 'Roboto Mono', monospace;
 }
 
 .calculator {
-    width: 520px;
-    height: 520px;
-    border: 3px solid black;
+    border: 10px solid #273746;
+    border-radius: 12px;
 }
 
 /*Style the display-area*/
@@ -18,27 +23,26 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color:  black;
 }
 
 .textField {
-    width: 75%;
-    height: 50%;
-    border: 2px solid black;
+    width: 100%;
+    height: 70px;
+    border: 5px solid black;
+    background-color:  #DAF7A6;
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
-    font-size: 36px;
+    font-size: 42px;
+    font-weight: bold;
 }
 
 /*Style the button-area*/
 
-button {
-    font-size: 24px;
-}
-
 .buttonContainer {
     display: flex;
-    background-color: grey;
+    background-color: black;
     height: 70%;
 }
 
@@ -47,7 +51,8 @@ button {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 66%;
+    gap: 3px;
+    margin: 3px;
 }
 
 .numberRowOne,
@@ -56,12 +61,23 @@ button {
 .numberRowFour {
     width: 100%;
     display: flex;
-    justify-content: space-evenly;
+    gap: 3px;
 }
 
 button {
+    font-size: 24px;
     height: 90px;
     width: 90px;
+    font-family: 'Roboto Mono', monospace;
+    font-weight: bold;
+}
+
+.functional {
+    background-color:  #FF5733;
+}
+
+.number {
+    background-color:   #FFC300 ;
 }
 
 .operatorContainer {
@@ -69,6 +85,8 @@ button {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 3px;
+    margin: 3px;
 }
 
 .operatorRowOne,
@@ -76,7 +94,7 @@ button {
 .operatorRowThree,
 .operatorRowFour {
     display: flex;
-    justify-content: space-evenly;
+    gap: 3px;
     width: 100%;
 }
 
