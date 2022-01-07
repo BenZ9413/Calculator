@@ -43,7 +43,7 @@ function addKeyboardSupport() {
         } else if (e.key == ".") {
             console.log('dot');
         } else if (e.key == "%") {
-            console.log('%');
+            convertToPercent();
         } else if (e.key == "Backspace") {
             backspace();
         } else if (e.key == "c") {
@@ -205,8 +205,10 @@ function showResultFunction () {
 
 function addClickEventToPercent () {
     const btnPercent = document.querySelector('.percent');
-    btnPercent.addEventListener('click', () => {
-        const display = document.querySelector('.textField');
-        display.textContent = (Number(display.textContent) / 100);
-    });
+    btnPercent.addEventListener('click', convertToPercent);
+};
+
+function convertToPercent () {
+    const display = document.querySelector('.textField');
+    display.textContent = (Number(display.textContent) / 100);
 };
