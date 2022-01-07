@@ -5,6 +5,7 @@ let firstNumber = null;
 let secondNumber = null;
 let operator = '';
 let displayCount = false;
+let eventType = '';
 setupCalculator();
 
 function setupCalculator() {
@@ -32,16 +33,20 @@ function addClickEventToNumbers() {
 
 function addKeyboardSupport() {
     document.addEventListener('keydown', function (e) {
-        if (displayCount) {
-            clearDisplay();
-            displayCount = false;
-        };
         if (e.key >= 0 && e.key <= 9) {
-            console.log('number');
+            if (displayCount) {
+                clearDisplay();
+                displayCount = false;
+            };
+            displayTextOnScreen(e);
         } else if (e.key == "+" || e.key == "-" || e.key == "*" || e.key == "/") {
             console.log('operator');
         } else if (e.key == ".") {
-            console.log('dot');
+            if (displayCount) {
+                clearDisplay();
+                displayCount = false;
+            };
+            checkIfDoubleDotAndDisplayTextOnScreen(e);
         } else if (e.key == "%") {
             convertToPercent();
         } else if (e.key == "Backspace") {
@@ -51,14 +56,20 @@ function addKeyboardSupport() {
         } else if (e.key == '=') {
             showResultFunction();
         };
-        // checkIfDoubleDotAndDisplayTextOnScreen(e);
     });
 };
 
 function displayTextOnScreen (e) {
     const display = document.querySelector('.textField');
     const actualDisplayText = display.textContent;
-    display.textContent = actualDisplayText + e.target.textContent;
+    switch (e.type) {
+        case 'keydown':
+            display.textContent = actualDisplayText + e.key;
+            break;
+        case 'click':
+            display.textContent = actualDisplayText + e.target.textContent;
+            break;
+    };
 };
 
 function checkIfDoubleDotAndDisplayTextOnScreen (e) {
