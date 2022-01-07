@@ -1,6 +1,5 @@
 /*Besonderheiten noch zu programmieren
 - Beginn mit negativer Zahl
-- keydown mehrere Punkte
 */
 let firstNumber = null;
 let secondNumber = null;
@@ -76,7 +75,16 @@ function displayTextOnScreen (e) {
 
 function checkIfDoubleDotAndDisplayTextOnScreen (e) {
     const display = document.querySelector('.textField');
-    if (display.textContent.split('').includes('.') && e.target.textContent == '.') {
+    let dot = '';
+    switch (e.type) {
+        case 'keydown':
+            dot = e.key;
+            break;
+        case 'click':
+            dot = e.target.textContent;
+            break;
+    };
+    if (display.textContent.split('').includes('.') && dot == '.') {
         alert('Don\'t be too picky.');
     } else {
         displayTextOnScreen(e);
