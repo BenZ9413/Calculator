@@ -14,6 +14,7 @@ function setupCalculator() {
     addClickEventToClear();
     addClickEventToResult();
     addClickEventToPercent();
+    addKeyboardSupport();
 };
 
 function addClickEventToNumbers() {
@@ -26,6 +27,31 @@ function addClickEventToNumbers() {
             };
             checkIfDoubleDotAndDisplayTextOnScreen(e);
         });
+    });
+};
+
+function addKeyboardSupport() {
+    document.addEventListener('keydown', function (e) {
+        if (displayCount) {
+            clearDisplay();
+            displayCount = false;
+        };
+        if (e.key >= 0 && e.key <= 9) {
+            console.log('number');
+        } else if (e.key == "+" || e.key == "-" || e.key == "*" || e.key == "/") {
+            console.log('operator');
+        } else if (e.key == ".") {
+            console.log('dot');
+        } else if (e.key == "%") {
+            console.log('%');
+        } else if (e.key == "Backspace") {
+            console.log('back');
+        } else if (e.key == "c") {
+            console.log('clear');
+        } else if (e.key == '=') {
+            showResultFunction();
+        };
+        // checkIfDoubleDotAndDisplayTextOnScreen(e);
     });
 };
 
@@ -152,23 +178,25 @@ function addClickEventToClear () {
 
 function addClickEventToResult () {
     const btnResult = document.querySelector('.result');
-    btnResult.addEventListener('click', () => {
-        storeNumber();
-        if (firstNumber == null || secondNumber == null) {
-            alert('ERROR: Not enough arguments. Please enter your equation again.');
-            firstNumber = null;
-            secondNumber = null;
-            displayCount = false;
-            operator = '';
-            clearDisplay();
-        } else {
-            let result = calculate(operator, firstNumber, secondNumber);
-            showResult(result);
-            firstNumber = null;
-            secondNumber = null;
-            displayCount = true;
-        };
-    });
+    btnResult.addEventListener('click', showResultFunction);
+};
+
+function showResultFunction () {
+    storeNumber();
+    if (firstNumber == null || secondNumber == null) {
+        alert('ERROR: Not enough arguments. Please enter your equation again.');
+        firstNumber = null;
+        secondNumber = null;
+        displayCount = false;
+        operator = '';
+        clearDisplay();
+    } else {
+        let result = calculate(operator, firstNumber, secondNumber);
+        showResult(result);
+        firstNumber = null;
+        secondNumber = null;
+        displayCount = true;
+    };
 };
 
 function addClickEventToPercent () {
