@@ -47,7 +47,7 @@ function addKeyboardSupport() {
         } else if (e.key == "Backspace") {
             console.log('back');
         } else if (e.key == "c") {
-            console.log('clear');
+            resetCalculator();
         } else if (e.key == '=') {
             showResultFunction();
         };
@@ -167,13 +167,15 @@ function addClickEventToBack () {
 
 function addClickEventToClear () {
     const btnClear = document.querySelector('.clear');
-    btnClear.addEventListener('click', () => {
-        firstNumber = null;
-        secondNumber = null;
-        displayCount = false;
-        operator = '';
-        clearDisplay();
-    });
+    btnClear.addEventListener('click', resetCalculator);
+};
+
+function resetCalculator () {
+    firstNumber = null;
+    secondNumber = null;
+    displayCount = false;
+    operator = '';
+    clearDisplay();
 };
 
 function addClickEventToResult () {
