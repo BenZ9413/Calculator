@@ -1,5 +1,6 @@
 /*Besonderheiten noch zu programmieren
 - Beginn mit negativer Zahl
+- keydown mehrere Punkte
 */
 let firstNumber = null;
 let secondNumber = null;
@@ -40,7 +41,8 @@ function addKeyboardSupport() {
             };
             displayTextOnScreen(e);
         } else if (e.key == "+" || e.key == "-" || e.key == "*" || e.key == "/") {
-            console.log('operator');
+            operate();
+            operator = storeOperator(e);
         } else if (e.key == ".") {
             if (displayCount) {
                 clearDisplay();
@@ -85,19 +87,23 @@ function addClickEventToOperators() {
     const btnOperators = document.querySelectorAll('.operator');
     btnOperators.forEach ((btn) =>{
         btn.addEventListener('click', function(e) {
-            storeNumber();
-            if (firstNumber !== null && secondNumber !== null) {
-                let result = calculate(operator, firstNumber, secondNumber);
-                showResult(result);
-                firstNumber = result;
-                secondNumber = null;
-                displayCount = true;
-            } else {
-                clearDisplay();
-            };
+            operate();
             operator = storeOperator(e); 
         });
     });
+};
+
+function operate () {
+    storeNumber();
+    if (firstNumber !== null && secondNumber !== null) {
+        let result = calculate(operator, firstNumber, secondNumber);
+        showResult(result);
+        firstNumber = result;
+        secondNumber = null;
+        displayCount = true;
+    } else {
+        clearDisplay();
+    };
 };
 
 function storeNumber() {
@@ -110,7 +116,15 @@ function storeNumber() {
 };
 
 function storeOperator (e) {
-    const operator = e.target.textContent;
+    let operator = '';
+    switch (e.type) {
+        case 'keydown':
+            operator = e.key;
+            break;
+        case 'click':
+            operator = e.target.textContent;
+            break;
+    };
     return operator;
 };
 
