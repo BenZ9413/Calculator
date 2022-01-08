@@ -24,6 +24,7 @@ function addKeyboardSupport() {
             };
             displayTextOnScreen(e);
         } else if (e.key == "+" || e.key == "-" || e.key == "*" || e.key == "/") {
+            e.preventDefault(); // otherwise the search bar would appear and disrupt the entry process
             operate(e);
             storeOperator(e);
         } else if (e.key == ".") {
