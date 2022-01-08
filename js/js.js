@@ -18,6 +18,7 @@ function setupCalculator() {
     addKeyboardSupport();
 };
 
+
 function addClickEventToNumbers() {
     const btnNumbers = document.querySelectorAll('.number');
     btnNumbers.forEach ((btn) => {
@@ -40,8 +41,8 @@ function addKeyboardSupport() {
             };
             displayTextOnScreen(e);
         } else if (e.key == "+" || e.key == "-" || e.key == "*" || e.key == "/") {
-            operate();
-            operator = storeOperator(e);
+            operate(e);
+            storeOperator(e);
         } else if (e.key == ".") {
             if (displayCount) {
                 clearDisplay();
@@ -95,13 +96,24 @@ function addClickEventToOperators() {
     const btnOperators = document.querySelectorAll('.operator');
     btnOperators.forEach ((btn) =>{
         btn.addEventListener('click', function(e) {
-            operate();
-            operator = storeOperator(e); 
+            operate(e);
+            storeOperator(e); 
         });
     });
 };
 
-function operate () {
+function operate (e) {
+    const display = document.querySelector('.textField');
+    /*let content = '';
+    switch (e.type) {
+        case 'keydown':
+            content = e.key;
+            break;
+        case 'click':
+            content = e.target.textContent;
+            break;
+    };
+    if (firstNumber !== null && display.textContent !== '') {*/
     storeNumber();
     if (firstNumber !== null && secondNumber !== null) {
         let result = calculate(operator, firstNumber, secondNumber);
@@ -112,6 +124,9 @@ function operate () {
     } else {
         clearDisplay();
     };
+    /*} else if (content = '-') {
+        displayTextOnScreen(e);
+    };*/
 };
 
 function storeNumber() {
@@ -124,7 +139,6 @@ function storeNumber() {
 };
 
 function storeOperator (e) {
-    let operator = '';
     switch (e.type) {
         case 'keydown':
             operator = e.key;
@@ -133,7 +147,6 @@ function storeOperator (e) {
             operator = e.target.textContent;
             break;
     };
-    return operator;
 };
 
 function calculate(operator, first, second) {
@@ -145,6 +158,9 @@ function calculate(operator, first, second) {
             result = subtract(first, second);
             break;
         case 'x':
+            result = multiply(first, second);
+            break;
+        case '*':
             result = multiply(first, second);
             break;
         case '/':
@@ -208,8 +224,9 @@ function addClickEventToClear () {
 function resetCalculator () {
     firstNumber = null;
     secondNumber = null;
-    displayCount = false;
     operator = '';
+    displayCount = false;
+    eventType = '';
     clearDisplay();
 };
 
@@ -222,16 +239,14 @@ function showResultFunction () {
     storeNumber();
     if (firstNumber == null || secondNumber == null) {
         alert('ERROR: Not enough arguments. Please enter your equation again.');
-        firstNumber = null;
-        secondNumber = null;
-        displayCount = false;
-        operator = '';
-        clearDisplay();
+        resetCalculator();
     } else {
         let result = calculate(operator, firstNumber, secondNumber);
         showResult(result);
         firstNumber = null;
         secondNumber = null;
+        operator = '';
+        eventType = '';
         displayCount = true;
     };
 };
