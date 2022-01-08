@@ -1,6 +1,3 @@
-/*Besonderheiten noch zu programmieren
-- Beginn mit negativer Zahl
-*/
 let firstNumber = null;
 let secondNumber = null;
 let operator = '';
@@ -9,27 +6,13 @@ let eventType = '';
 setupCalculator();
 
 function setupCalculator() {
+    addKeyboardSupport();
     addClickEventToNumbers();
     addClickEventToOperators();
     addClickEventToBack();
     addClickEventToClear();
     addClickEventToResult();
     addClickEventToPercent();
-    addKeyboardSupport();
-};
-
-
-function addClickEventToNumbers() {
-    const btnNumbers = document.querySelectorAll('.number');
-    btnNumbers.forEach ((btn) => {
-        btn.addEventListener('click', function (e) {
-            if (displayCount) {
-                clearDisplay();
-                displayCount = false;
-            };
-            checkIfDoubleDotAndDisplayTextOnScreen(e);
-        });
-    });
 };
 
 function addKeyboardSupport() {
@@ -58,6 +41,19 @@ function addKeyboardSupport() {
         } else if (e.key == '=') {
             showResultFunction();
         };
+    });
+};
+
+function addClickEventToNumbers() {
+    const btnNumbers = document.querySelectorAll('.number');
+    btnNumbers.forEach ((btn) => {
+        btn.addEventListener('click', function (e) {
+            if (displayCount) {
+                clearDisplay();
+                displayCount = false;
+            };
+            checkIfDoubleDotAndDisplayTextOnScreen(e);
+        });
     });
 };
 
@@ -104,7 +100,7 @@ function addClickEventToOperators() {
 
 function operate (e) {
     const display = document.querySelector('.textField');
-    /*let content = '';
+    let content = '';
     switch (e.type) {
         case 'keydown':
             content = e.key;
@@ -113,20 +109,24 @@ function operate (e) {
             content = e.target.textContent;
             break;
     };
-    if (firstNumber !== null && display.textContent !== '') {*/
-    storeNumber();
-    if (firstNumber !== null && secondNumber !== null) {
-        let result = calculate(operator, firstNumber, secondNumber);
-        showResult(result);
-        firstNumber = result;
-        secondNumber = null;
-        displayCount = true;
-    } else {
+    if (content == '-' && (display.textContent == ''|| (displayCount == true && operator !== ''))) {
         clearDisplay();
-    };
-    /*} else if (content = '-') {
         displayTextOnScreen(e);
-    };*/
+        displayCount = false;
+    } else {
+        if (display.textContent !== '-') {
+            storeNumber();
+            if (firstNumber !== null && secondNumber !== null) {
+                let result = calculate(operator, firstNumber, secondNumber);
+                showResult(result);
+                firstNumber = result;
+                secondNumber = null;
+                displayCount = true;
+            } else {
+                clearDisplay();
+            };
+        };
+    };
 };
 
 function storeNumber() {
@@ -135,17 +135,20 @@ function storeNumber() {
         firstNumber = Number(display.textContent);
     } else {
         secondNumber = Number(display.textContent);
-    };
+    };        
 };
 
 function storeOperator (e) {
-    switch (e.type) {
-        case 'keydown':
-            operator = e.key;
-            break;
-        case 'click':
-            operator = e.target.textContent;
-            break;
+    const display = document.querySelector('.textField');
+    if (display.textContent !== '-') {
+        switch (e.type) {
+            case 'keydown':
+                operator = e.key;
+                break;
+            case 'click':
+                operator = e.target.textContent;
+                break;
+        };
     };
 };
 
